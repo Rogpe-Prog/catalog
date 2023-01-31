@@ -1,9 +1,9 @@
 package com.heroes.dscatalog.services.exceptions;
 
-public class EntityNotFoundExecption extends RuntimeException {
+public class ResourceNotFoundExecption extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 	
-	public EntityNotFoundExecption(String msg) {
+	public ResourceNotFoundExecption(String msg) {
 		super(msg);
 	}
 

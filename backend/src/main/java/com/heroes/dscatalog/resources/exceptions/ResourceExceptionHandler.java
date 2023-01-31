@@ -9,13 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.heroes.dscatalog.services.exceptions.EntityNotFoundExecption;
+import com.heroes.dscatalog.services.exceptions.DatabaseException;
+import com.heroes.dscatalog.services.exceptions.ResourceNotFoundExecption;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
 	
-	@ExceptionHandler(EntityNotFoundExecption.class)
-	public ResponseEntity<StandardError> entityNotFound(EntityNotFoundExecption e, HttpServletRequest request) {
+	@ExceptionHandler(ResourceNotFoundExecption.class)
+	public ResponseEntity<StandardError> entityNotFound(ResourceNotFoundExecption e, HttpServletRequest request) {
 		StandardError err = new StandardError();
 		err.setTimestamp(Instant.now());
 		err.setStatus(HttpStatus.NOT_FOUND.value());
@@ -25,5 +26,20 @@ public class ResourceExceptionHandler {
 		
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
 	}
+	
+	
+	@ExceptionHandler(DatabaseException.class)
+	public ResponseEntity<StandardError> database(DatabaseException e, HttpServletRequest request) {
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		StandardError err = new StandardError();
+		err.setTimestamp(Instant.now());
+		err.setStatus(status.value());
+		err.setError("Database exception");
+		err.setMessage(e.getMessage());
+		err.setPath(request.getRequestURI());
+		
+		return ResponseEntity.status(status).body(err);
+	}
+	
 	
 }
