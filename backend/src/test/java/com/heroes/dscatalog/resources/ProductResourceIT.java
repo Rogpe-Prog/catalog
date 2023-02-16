@@ -78,5 +78,22 @@ public class ProductResourceIT {
 				result.andExpect(jsonPath("$.name").value(expectName));
 
 	}	
+	
+	@Test
+	public void updateShouldReturnNotFoundWhenIdNonexists() throws Exception {
+		
+		ProductDTO productDTO = Factory.createProductDTO();
+		
+		String jsonBody = objectMapper.writeValueAsString(productDTO);		
+		
+				ResultActions result =  
+						mockMvc.perform(put("/products/{id}", nonExistingId)
+								.content(jsonBody)
+								.contentType(MediaType.APPLICATION_JSON)
+								.accept(MediaType.APPLICATION_JSON));
+				
+				result.andExpect(status().isNotFound());
+				
+	}
 
 }
