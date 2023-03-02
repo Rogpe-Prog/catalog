@@ -1,4 +1,4 @@
-package com.heroes.dscatalog.services;
+package com.heroes.dscatalog.services.validation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,6 @@ import com.heroes.dscatalog.dto.UserInsertDTO;
 import com.heroes.dscatalog.entities.User;
 import com.heroes.dscatalog.repositories.UserRepository;
 import com.heroes.dscatalog.resources.exceptions.FieldMessage;
-import com.heroes.dscatalog.services.validation.UserInsertValid;
 
 public class UserInsertValidator implements ConstraintValidator<UserInsertValid, UserInsertDTO> {
 	
